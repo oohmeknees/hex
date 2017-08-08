@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>Hexadecimal</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+	    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+        <link href="css/stylesheet.css" rel="stylesheet" type="text/css">
+	    <script src="http://code.jquery.com/jquery.js"></script>
+	    <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+	<link rel="shortcut icon" href="ico/favicon.png">
+
+	</head>
+	<body>
+    <!-- Part 1: Wrap all page content here -->
+    <div id="wrap">
+
+      <!-- Begin page content -->
+      <div class="container">
+        <div class="page-header">
+			<h1>Hexadecimal</h1>
+        </div>
+        <div class="span6">
+			<p>Seeing how hexadecimal numbers are used in computing...</p>
+			<p><input type="text" id="colour" class="span4" placeholder="Type colour name or hex number..."></p>
+			<p><div class="btn btn-success btn-large " id="go">See the colour!</div></p>
+			<div class="clearfix"></div>
+			<div id="colour_result" class="img-rounded img-polaroid"></div>
+			<div class="clearfix"></div>
+			<table class="table">
+				<thead>
+					<th class="span1">red</th>
+					<th class="span1">green</th>
+					<th class="span1">blue</th>
+				</thead>
+				<tr>
+					<td id="red">-</td>
+					<td id="green">-</td>
+					<td id="blue">-</td>
+				</tr>
+			</table>
+		</div>
+      </div>
+      <div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">Code <a href="explained.html">explained</a></p>
+      </div>
+    </div>	
+	
+	<script>
+		$("#go").click(function () {
+			var original = $("#colour_result").css("background-color");
+			var colour = $("#colour").val();
+
+			// attempt to change colour of div
+			$("#colour_result").css("background-color", colour);
+
+			// test colour changed and if not try to see if # needs preprending
+			// before trying the change again
+			if ($("#colour_result").css("background-color") == original) {
+				colour = "#" + colour;
+				$("#colour_result").css("background-color", colour);
+			};
+
+			if ($("#colour_result").css("background-color") == original) {
+				alert("eh?\n\ncheck you have a correct hex number or colour name\nhave you changed the colour?");
+			} else {
+				colour = $("#colour_result").css("background-color");
+				colour = colour.replace(/ /gi,"");
+				var comma1 = colour.indexOf(",", 3);
+				var comma2 = colour.indexOf(",", comma1 + 1);
+				$("#red").text(colour.substring(4,comma1));
+				$("#green").text(colour.substring(comma1+1,comma2));
+				$("#blue").text(colour.substring(comma2+1,colour.length-1));
+			};
+		});
+	</script>
+
+	</body>
+</html>
